@@ -1,0 +1,40 @@
+#Clean the dataset replace the missing values,remove outliers.
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+x=pd.read_csv("netflix1.csv")
+x
+x=pd.read_csv("netflix1.csv")
+x
+#read the rows and columns
+x.shape
+#print first 5 rows
+x.head()
+#print last 5 rows 
+x.tail()
+#null values
+x.isnull().sum
+#finding the null values
+x.isnull()
+ #generating the descriptive statistics of dataframe
+x.describe()
+sns.heatmap(x.isnull())   #visualize data in a matrix format using colors
+plt.title("missing values")
+def ext_dur(duration):
+    try:
+        return int(''.join(filter(str.isdigit,duration)))
+    except:
+        return None
+x['duration'].apply(ext_dur)
+Q1_year=x["release_year"].quantile(0.25)
+Q2_year=x["release_year"].quantile(0.75)
+IQR_year=Q2_year - Q1_year
+lower_bound=Q1_year-1.5*IQR_year
+upper_bound=Q2_year+1.5*IQR_year
+leaned_dataset=x[(x["release_year"]<lower_bound)|(x["release_year"]>upper_bound)]
+leaned_dataset
+cleaned_dataset=x.reset_index(drop=True,inplace=True)
+cleaned_dataset
+cleaned_dataset
+x
